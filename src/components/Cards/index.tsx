@@ -1,17 +1,21 @@
 import { Image, Text, View } from 'react-native';
-import React, { Component } from 'react';
+import React from 'react';
+import styles from './styles';
 
-interface DigiData {
-  id: number;
-  name: string;
-  href: string;
-  image: string;
-}
-const Card: React.FC<DigiData> = ({ digiData }) => {
+type CardProps = {
+  data: {
+    name: string;
+    image: string;
+    color: string;
+  };
+};
+const Card: React.FC<CardProps> = ({ data }) => {
+  console.log(data.color);
+
   return (
-    <View>
-      <Text>{digiData.name}</Text>
-      <Image source={{ uri: digiData.image }} />
+    <View style={[styles.container, { backgroundColor: data.color }]}>
+      <Text style={styles.text}>{data.name}</Text>
+      <Image style={styles.image} source={{ uri: data.image }} />
     </View>
   );
 };

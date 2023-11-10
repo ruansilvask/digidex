@@ -2,10 +2,19 @@ import React, { useEffect, useState } from 'react';
 
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import { ApiPathBase } from '../../services';
-import { Card } from '../../components';
+import { Card, Header } from '../../components';
+import styles from './styles';
 
 const DigiDexHome: React.FC = () => {
-  const [digimonList, setDigimonList] = useState<any[]>([]);
+  interface DigiData {
+    id: number;
+    name: string;
+    href: string;
+    image: string;
+    color: string;
+  }
+
+  const [digimonList, setDigimonList] = useState<DigiData[]>([]);
 
   useEffect(() => {
     init();
@@ -13,18 +22,28 @@ const DigiDexHome: React.FC = () => {
 
   const init = async () => {
     const digiResponse = await ApiPathBase.get(`/digimon`);
-    console.log(digiResponse.data);
-    setDigimonList(digiResponse.data.content);
+    const digiDataReault: DigiData[] = digiResponse.data.content.map((item: DigiData) => ({
+      ...item,
+      color: generationColor(),
+    }));
+    setDigimonList(digiDataReault);
+  };
+
+  const generationColor = () => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   };
 
   return (
-    <SafeAreaView>
+    <View style={styles.container}>
+      <Header />
       <FlatList
         data={digimonList}
-        renderItem={({ item }) => <Card digiData={item} />}
-        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Card data={{ name: item.name, image: item.image, color: item.color }} />
+        )}
+        keyExtractor={(item) => String(item.id)}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
