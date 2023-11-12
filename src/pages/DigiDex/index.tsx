@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FlatList, SafeAreaView, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { ApiPathBase } from '../../services';
 import { Card, Header } from '../../components';
 import styles from './styles';
@@ -16,18 +16,25 @@ const DigiDexHome: React.FC = () => {
   }
 
   const [digimonList, setDigimonList] = useState<DigiData[]>([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     init();
-  }, []);
+  }, [page]);
 
   const init = async () => {
-    const digiResponse = await ApiPathBase.get(`/digimon`);
+    const digiResponse = await ApiPathBase.get(`/digimon?page=${page}`);
+
     const digiDataReault: DigiData[] = digiResponse.data.content.map((item: DigiData) => ({
       ...item,
       color: generationColor(),
     }));
     setDigimonList(digiDataReault);
+  };
+
+  const handleEndReached = () => {
+    setPage((prevPage) => prevPage + 1);
+    console.log(page);
   };
 
   return (
@@ -39,6 +46,8 @@ const DigiDexHome: React.FC = () => {
           <Card data={{ name: item.name, image: item.image, color: item.color }} />
         )}
         keyExtractor={(item) => String(item.id)}
+        onEndReached={handleEndReached}
+        onEndReachedThreshold={0.1} // 10% do final da lista
       />
     </View>
   );
