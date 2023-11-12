@@ -4,6 +4,7 @@ import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import { ApiPathBase } from '../../services';
 import { Card, Header } from '../../components';
 import styles from './styles';
+import { generationColor } from '../../utils';
 
 const DigiDexHome: React.FC = () => {
   interface DigiData {
@@ -27,10 +28,6 @@ const DigiDexHome: React.FC = () => {
       color: generationColor(),
     }));
     setDigimonList(digiDataReault);
-  };
-
-  const generationColor = () => {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   };
 
   return (

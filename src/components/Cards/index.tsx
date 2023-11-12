@@ -10,8 +10,6 @@ type CardProps = {
   };
 };
 const Card: React.FC<CardProps> = ({ data }) => {
-  console.log(data.color);
-
   return (
     <View style={[styles.container, { backgroundColor: data.color }]}>
       <Text style={styles.text}>{data.name}</Text>

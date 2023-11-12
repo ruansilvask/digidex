@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const sytles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: 'green',
     borderRadius: 5,
@@ -21,4 +21,4 @@ const sytles = StyleSheet.create({
   },
 });
 
-export default sytles;
+export default styles;
