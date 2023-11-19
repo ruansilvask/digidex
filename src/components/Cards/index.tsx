@@ -1,9 +1,12 @@
-import { Image, Text, View } from 'react-native';
 import React from 'react';
+import { Image, Text, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+
 import styles from './styles';
 
 type CardProps = {
   data: {
+    id: number;
     name: string;
     image: string;
     color: string;
@@ -11,10 +14,16 @@ type CardProps = {
 };
 const Card: React.FC<CardProps> = ({ data }) => {
   return (
-    <View style={[styles.container, { backgroundColor: data.color }]}>
-      <Text style={styles.text}>{data.name}</Text>
+    <LinearGradient
+      colors={['#4c669f', '#4dcdae']}
+      style={styles.linearGradient}
+      useAngle={true}
+      angle={130}
+    >
       <Image style={styles.image} source={{ uri: data.image }} />
-    </View>
+      <Text style={styles.description}>{data.name}</Text>
+      <Text style={styles.identify}>#{data?.id}</Text>
+    </LinearGradient>
   );
 };
 

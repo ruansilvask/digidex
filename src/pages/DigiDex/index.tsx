@@ -23,19 +23,20 @@ const DigiDexHome: React.FC = () => {
   }, [page]);
 
   const init = async () => {
-    const digiResponse = await ApiPathBase.get(`/digimon?page=${page}`);
+    const digiResponse = await ApiPathBase.get(`/digimon?page=${page}&pageSize=10`);
 
     const digiDataReault: DigiData[] = digiResponse.data.content.map((item: DigiData) => ({
       ...item,
       color: generationColor(),
     }));
-    setDigimonList(digiDataReault);
+    setDigimonList((prev) => [...prev, ...digiDataReault]);
   };
 
   const handleEndReached = () => {
     setPage((prevPage) => prevPage + 1);
-    console.log(page);
   };
+
+  console.log(page);
 
   return (
     <View style={styles.container}>
@@ -43,7 +44,7 @@ const DigiDexHome: React.FC = () => {
       <FlatList
         data={digimonList}
         renderItem={({ item }) => (
-          <Card data={{ name: item.name, image: item.image, color: item.color }} />
+          <Card data={{ name: item.name, image: item.image, color: item.color, id: item.id }} />
         )}
         keyExtractor={(item) => String(item.id)}
         onEndReached={handleEndReached}
