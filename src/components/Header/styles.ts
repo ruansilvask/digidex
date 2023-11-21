@@ -2,15 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#3f4395',
+    // backgroundColor: '#3f4395',
+    marginBottom: 10,
+    padding: 10,
   },
   actions: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'flex-end',
+    flexDirection: 'row',
     paddingTop: 50,
-    margin: 10,
-    padding: 10,
   },
   descriptions: {
     flexDirection: 'row',
@@ -20,8 +19,20 @@ const styles = StyleSheet.create({
   },
   descriptionsText: {
     color: 'white',
-    fontFamily: '16',
+    fontSize: 15,
     fontWeight: '700',
+    shadowColor: 'black',
+  },
+  button: {
+    flexDirection: 'row-reverse',
+    backgroundColor: '#05071e',
+    color: 'white',
+  },
+  descriptionsTitle: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: '700',
+    paddingRight: 15,
   },
 });
 

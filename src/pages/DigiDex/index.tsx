@@ -36,8 +36,6 @@ const DigiDexHome: React.FC = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  console.log(page);
-
   return (
     <View style={styles.container}>
       <Header />
